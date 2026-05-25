@@ -18,10 +18,10 @@
     </changeSet>
 
     <!-- ChangeSet 2: Insert 5 sample employees -->
-    <changeSet id="2" author="pallavi">
+    <changeSet id="2" author="ramji">
         <insert tableName="employee">
-            <column name="name" value="Pallavi"/>
-            <column name="role" value="Developer"/>
+            <column name="name" value="noida"/>
+            <column name="role" value="officer"/>
         </insert>
         <insert tableName="employee">
             <column name="name" value="Mahesh"/>
