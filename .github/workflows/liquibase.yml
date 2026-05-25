@@ -26,7 +26,3 @@ jobs:
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
         classpath: mssql-jdbc.jar
-
-
-
- 
