@@ -1,8 +1,7 @@
 name: Liquibase Deploy
 
 on:
-  workflow_dispatch:   # Manual run enable
-
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -24,13 +23,15 @@ jobs:
         tar -xzf liquibase.tar.gz
         mkdir -p liquibase-4.27.0/lib
         curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o liquibase-4.27.0/lib/mssql-jdbc.jar
+        chmod +x liquibase-4.27.0/liquibase   # 👈 binary ko executable banaya
 
     - name: Run Liquibase update
       run: |
-        ./liquibase-4.27.0/liquibase \
+        liquibase-4.27.0/liquibase \
           --url="${{ secrets.DB_URL }}" \
           --username="${{ secrets.DB_USER }}" \
           --password="${{ secrets.DB_PASS }}" \
           --changeLogFile=db.changelog-master.xml \
           --classpath=liquibase-4.27.0/lib/mssql-jdbc.jar \
           update
+
