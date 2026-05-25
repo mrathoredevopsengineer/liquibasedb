@@ -26,10 +26,10 @@ jobs:
 
     - name: Run Liquibase update
       run: |
-        ./liquibase/liquibase \
+        ./liquibase-4.27.0/liquibase \
           --url="${{ secrets.DB_URL }}" \
           --username="${{ secrets.DB_USER }}" \
           --password="${{ secrets.DB_PASS }}" \
           --changeLogFile=db.changelog-master.xml \
-          --classpath=liquibase/lib/mssql-jdbc.jar \
+          --classpath=liquibase-4.27.0/lib/mssql-jdbc.jar \
           update
