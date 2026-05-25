@@ -1,9 +1,8 @@
 name: Liquibase Deploy
 
 on:
-  workflow_dispatch:
-  push:
-    branches: [ "main" ]
+  workflow_dispatch:   # Manual run enable
+
 
 jobs:
   deploy:
@@ -23,6 +22,7 @@ jobs:
       run: |
         curl -L https://github.com/liquibase/liquibase/releases/download/v4.27.0/liquibase-4.27.0.tar.gz -o liquibase.tar.gz
         tar -xzf liquibase.tar.gz
+        mkdir -p liquibase/lib
         curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o liquibase/lib/mssql-jdbc.jar
 
     - name: Run Liquibase update
@@ -34,4 +34,3 @@ jobs:
           --changeLogFile=db.changelog-master.xml \
           --classpath=liquibase/lib/mssql-jdbc.jar \
           update
-
