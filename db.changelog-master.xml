@@ -6,9 +6,14 @@
 
     <changeSet id="1" author="pallavi">
         <createTable tableName="employee">
-            <column name="id" type="int" autoIncrement="true" primaryKey="true"/>
-            <column name="name" type="varchar(255)"/>
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="role" type="varchar(255)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
+
