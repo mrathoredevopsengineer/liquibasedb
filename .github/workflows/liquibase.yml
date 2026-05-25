@@ -1,7 +1,7 @@
 name: Liquibase Deploy
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # Manual run enable
   push:
     branches: [ "main" ]
 
@@ -13,17 +13,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Java
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    - name: Install Liquibase
+    - name: Download Microsoft JDBC Driver
       run: |
-        curl -L https://github.com/liquibase/liquibase/releases/download/v4.27.0/liquibase-4.27.0.tar.gz | tar xz
-        sudo mv liquibase /usr/local/bin/liquibase
-        
+        curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o mssql-jdbc.jar
+
     - name: Run Liquibase update
       uses: liquibase/liquibase-github-action@v7
       with:
@@ -32,17 +25,8 @@ jobs:
         url: ${{ secrets.DB_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
+        classpath: mssql-jdbc.jar
 
 
-    # - name: Run Liquibase update
-    #   env:
-    #     DB_URL: ${{ secrets.DB_URL }}
-    #     DB_USER: ${{ secrets.DB_USER }}
-    #     DB_PASS: ${{ secrets.DB_PASS }}
-    #   run: |
-    #     liquibase \
-    #       --url=$DB_URL \
-    #       --username=$DB_USER \
-    #       --password=$DB_PASS \
-    #       --changeLogFile=db.changelog-master.xml \
-    #       update
+
+ 
