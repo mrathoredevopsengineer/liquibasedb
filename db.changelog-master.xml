@@ -4,6 +4,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
+    <!-- ChangeSet 1: Create employee table -->
     <changeSet id="1" author="pallavi">
         <createTable tableName="employee">
             <column name="id" type="int" autoIncrement="true">
@@ -15,5 +16,30 @@
             <column name="role" type="varchar(255)"/>
         </createTable>
     </changeSet>
+
+    <!-- ChangeSet 2: Insert 5 sample employees -->
+    <changeSet id="2" author="pallavi">
+        <insert tableName="employee">
+            <column name="name" value="Pallavi"/>
+            <column name="role" value="Developer"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="name" value="Mahesh"/>
+            <column name="role" value="Manager"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="name" value="Ravi"/>
+            <column name="role" value="Tester"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="name" value="Sneha"/>
+            <column name="role" value="HR"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="name" value="Anita"/>
+            <column name="role" value="Designer"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
 
