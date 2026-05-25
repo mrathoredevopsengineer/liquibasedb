@@ -3,6 +3,7 @@ name: Liquibase Deploy
 on:
   workflow_dispatch:
 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,7 +22,9 @@ jobs:
       run: |
         curl -L https://github.com/liquibase/liquibase/releases/download/v4.27.0/liquibase-4.27.0.tar.gz -o liquibase.tar.gz
         tar -xzf liquibase.tar.gz
-        sudo mv liquibase-4.27.0 /usr/local/liquibase
+        # find the extracted folder dynamically
+        EXTRACTED_DIR=$(tar -tf liquibase.tar.gz | head -1 | cut -f1 -d"/")
+        sudo mv "$EXTRACTED_DIR" /usr/local/liquibase
         curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o /usr/local/liquibase/lib/mssql-jdbc.jar
         sudo ln -s /usr/local/liquibase/liquibase /usr/local/bin/liquibase
 
