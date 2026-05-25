@@ -22,6 +22,7 @@ jobs:
       run: |
         curl -L https://github.com/liquibase/liquibase/releases/download/v4.27.0/liquibase-4.27.0.tar.gz -o liquibase.tar.gz
         tar -xzf liquibase.tar.gz
+        mkdir -p liquibase-4.27.0/lib
         curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o liquibase-4.27.0/lib/mssql-jdbc.jar
 
     - name: Run Liquibase update
