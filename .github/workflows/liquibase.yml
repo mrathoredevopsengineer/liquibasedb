@@ -30,7 +30,7 @@ jobs:
         ./liquibase/liquibase \
           --url="${{ secrets.DB_URL }}" \
           --username="${{ secrets.DB_USER }}" \
-          --password="${{ secrets.DB_PASS }}" \
+           --password="${{ secrets.DB_PASS }}" \
           --changeLogFile=db.changelog-master.xml \
           --classpath=liquibase/lib/mssql-jdbc.jar \
           update
