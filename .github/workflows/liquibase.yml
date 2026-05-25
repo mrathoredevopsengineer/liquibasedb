@@ -23,7 +23,7 @@ jobs:
         tar -xzf liquibase.tar.gz
         # detect extracted folder name dynamically
         EXTRACTED_DIR=$(tar -tf liquibase.tar.gz | head -1 | cut -f1 -d"/")
-        echo "Extracted folder: $EXTRACTED_DIR"
+        echo "Extracted folder is: $EXTRACTED_DIR"
         mv "$EXTRACTED_DIR" liquibase
         mkdir -p liquibase/lib
         curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o liquibase/lib/mssql-jdbc.jar
