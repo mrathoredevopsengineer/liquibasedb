@@ -1,7 +1,7 @@
 name: Liquibase Deploy
 
 on:
-  workflow_dispatch:   # Manual run enable
+  workflow_dispatch:
   push:
     branches: [ "main" ]
 
@@ -13,16 +13,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Download Microsoft JDBC Driver
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Download Liquibase + JDBC Driver
       run: |
-        curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o mssql-jdbc.jar
+        curl -L https://github.com/liquibase/liquibase/releases/download/v4.27.0/liquibase-4.27.0.tar.gz -o liquibase.tar.gz
+        tar -xzf liquibase.tar.gz
+        curl -L https://github.com/microsoft/mssql-jdbc/releases/download/v12.6.0/mssql-jdbc-12.6.0.jre17.jar -o liquibase/lib/mssql-jdbc.jar
 
     - name: Run Liquibase update
-      uses: liquibase/liquibase-github-action@v7
-      with:
-        operation: update
-        changelogFile: db.changelog-master.xml
-        url: ${{ secrets.DB_URL }}
-        username: ${{ secrets.DB_USER }}
-        password: ${{ secrets.DB_PASS }}
-        classpath: ./mssql-jdbc.jar
+      run: |
+        ./liquibase/liquibase \
+          --url="${{ secrets.DB_URL }}" \
+          --username="${{ secrets.DB_USER }}" \
+          --password="${{ secrets.DB_PASS }}" \
+          --changeLogFile=db.changelog-master.xml \
+          --classpath=liquibase/lib/mssql-jdbc.jar \
+          update
+
