@@ -25,4 +25,4 @@ jobs:
         url: ${{ secrets.DB_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
-        classpath: mssql-jdbc.jar
+        classpath: ./mssql-jdbc.jar
