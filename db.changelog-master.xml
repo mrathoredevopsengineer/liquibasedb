@@ -40,6 +40,13 @@
             <column name="role" value="Designer"/>
         </insert>
     </changeSet>
+    <!-- ChangeSet 3: Insert 5 sample employees -->
+    <changeSet id="3" author="pallavi">
+        <insert tableName="employee">
+            <column name="name" value="Pallavi"/>
+            <column name="role" value="Developer"/>
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>
 
