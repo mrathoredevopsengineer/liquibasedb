@@ -23,16 +23,26 @@ jobs:
       run: |
         curl -L https://github.com/liquibase/liquibase/releases/download/v4.27.0/liquibase-4.27.0.tar.gz | tar xz
         sudo mv liquibase /usr/local/bin/liquibase
-
+        
     - name: Run Liquibase update
-      env:
-        DB_URL: ${{ secrets.DB_URL }}
-        DB_USER: ${{ secrets.DB_USER }}
-        DB_PASS: ${{ secrets.DB_PASS }}
-      run: |
-        liquibase \
-          --url=$DB_URL \
-          --username=$DB_USER \
-          --password=$DB_PASS \
-          --changeLogFile=db.changelog-master.xml \
-          update
+      uses: liquibase/liquibase-github-action@v7
+      with:
+        operation: update
+        changelogFile: db.changelog-master.xml
+        url: ${{ secrets.DB_URL }}
+        username: ${{ secrets.DB_USER }}
+        password: ${{ secrets.DB_PASS }}
+
+
+    # - name: Run Liquibase update
+    #   env:
+    #     DB_URL: ${{ secrets.DB_URL }}
+    #     DB_USER: ${{ secrets.DB_USER }}
+    #     DB_PASS: ${{ secrets.DB_PASS }}
+    #   run: |
+    #     liquibase \
+    #       --url=$DB_URL \
+    #       --username=$DB_USER \
+    #       --password=$DB_PASS \
+    #       --changeLogFile=db.changelog-master.xml \
+    #       update
